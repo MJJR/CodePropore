@@ -1,50 +1,90 @@
 package ex3;
 
+import java.util.ArrayList;
+
+/**
+ * Classe Zoo
+ * 
+ * @author matth
+ *
+ */
 public class Zoo {
 
+	/**
+	 * nom : String
+	 */
 	private String nom;
-	private SavaneAfricaine savaneAfricaine;
-	private ZoneCarnivore zoneCarnivore;
-	private FermeReptile fermeReptile;
-	private Aquarium aquarium;
-	
-	public Zoo(String nom){
+
+	/**
+	 * zones : ArrayList<Zone>
+	 */
+	private ArrayList<Zone> zones;
+
+	/**
+	 * @param nom
+	 */
+	public Zoo(String nom) {
 		this.nom = nom;
-	}
-	
-	public void addAnimal(String nomAnimal, String typeAnimal, String comportement){
-		if (typeAnimal.equals("MAMMIFERE") && comportement.equals("CARNIVORE")){
-			zoneCarnivore.addAnimal(typeAnimal, nomAnimal, comportement);
-		}
-		else if (typeAnimal.equals("MAMMIFERE") && comportement.equals("HERBIVORE")){
-			savaneAfricaine.addAnimal(typeAnimal, nomAnimal, comportement);
-		}
-		else if (typeAnimal.equals("REPTILE")){
-			fermeReptile.addAnimal(typeAnimal, nomAnimal, comportement);
-		}
-		else if (typeAnimal.equals("POISSON")){
-			aquarium.addAnimal(typeAnimal, nomAnimal, comportement);
-		}
-	}
-	
-	public void afficherListeAnimaux(){
-		savaneAfricaine.afficherListeAnimaux();
-		zoneCarnivore.afficherListeAnimaux();
-		fermeReptile.afficherListeAnimaux();
-		aquarium.afficherListeAnimaux();
+
+		this.zones = new ArrayList<Zone>();
+
 	}
 
-	/** Getter for nom
+	/**
+	 * Fonction : Ajoute un animal
+	 * 
+	 * @param animal
+	 */
+	public void addAnimal(Animal animal) {
+		for (int i = 0; i < getZones().size(); i++) {
+			if (getZones().get(i).verifierAnimal(animal)) {
+				getZones().get(i).ajouterAnimal(animal);
+			}
+		}
+	}
+
+	/**
+	 * Fonction : affiche la liste des animaux de la zone
+	 * 
+	 */
+	public void afficherListeAnimaux() {
+		for (int i = 0; i < getZones().size(); i++) {
+			getZones().get(i).afficherListeAnimaux();
+		}
+	}
+
+	/**
+	 * Getter for nom
+	 * 
 	 * @return the nom
 	 */
 	public String getNom() {
 		return nom;
 	}
 
-	/** Setter
-	 * @param nom the nom to set
+	/**
+	 * Setter
+	 * 
+	 * @param nom
+	 *            the nom to set
 	 */
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+
+	/**
+	 * @return the zones
+	 */
+	public ArrayList<Zone> getZones() {
+		return zones;
+	}
+
+	/**
+	 * @param zones
+	 *            the zones to set
+	 */
+	public void setZones(ArrayList<Zone> zones) {
+		this.zones = zones;
+	}
+
 }
